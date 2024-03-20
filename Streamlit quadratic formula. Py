@@ -1,0 +1,32 @@
+import streamlit as st
+import numpy as np
+
+def quadratic_roots(a, b, c):
+    discriminant = b**2 - 4*a*c
+    if discriminant > 0:
+        root1 = (-b + np.sqrt(discriminant)) / (2*a)
+        root2 = (-b - np.sqrt(discriminant)) / (2*a)
+        return root1, root2
+    elif discriminant == 0:
+        root = -b / (2*a)
+        return root, root
+    else:
+        real_part = -b / (2*a)
+        imaginary_part = np.sqrt(-discriminant) / (2*a)
+        return complex(real_part, imaginary_part), complex(real_part, -imaginary_part)
+
+def main():
+    st.title("Quadratic Equation Solver")
+
+    st.write("Enter the values of 'a', 'b', and 'c' to calculate the roots of the quadratic equation ax^2 + bx + c = 0.")
+
+    a = st.number_input("Enter the value of 'a'", step=0.1)
+    b = st.number_input("Enter the value of 'b'", step=0.1)
+    c = st.number_input("Enter the value of 'c'", step=0.1)
+
+    if st.button("Calculate Roots"):
+        root1, root2 = quadratic_roots(a, b, c)
+        st.success(f"The roots of the equation are: {root1} and {root2}")
+
+if __name__ == "__main__":
+    main()
